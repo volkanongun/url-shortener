@@ -13,8 +13,9 @@ app.set("view engine", "ejs")
 app.use(express.urlencoded({extended: false}))
 
 app.get("/", async (req,res)=>{
-	const shortURLs = await ShortUrl.find();
-	res.render("index", {shortURLs : shortURLs});
+	const s = await ShortUrl.find();
+	console.log(s, " ∆")
+	res.render("index", { shortURLs : s});
 })
 
 app.post("/shortURLs", async (req,res)=>{
@@ -23,16 +24,17 @@ app.post("/shortURLs", async (req,res)=>{
 })
 
 app.get('/:shortURL', async (req,res) => {
-	const shortUrl = await ShortUrl.findOne({short : req.params.shortUrl})
+	console.log(req.params, " REQ params")
+	const s = await ShortUrl.findOne({short : req.params.shortURL})
 
-	if (shortUrl == null) {
+	if (s == null) {
 		return res.sendStatus(404)
 	}
 
-	shortUrl.clicks++
-	shortUrl.save()
+	s.clicks++
+	s.save()
 
-	res.redirect(shortUrl.full);
+	res.redirect(s.full);
 })
 
 app.listen(process.env.PORT || 5000)
