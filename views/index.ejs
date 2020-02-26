@@ -22,11 +22,13 @@
 				<th>Clicks</th>
 			</thead>
 			<tbody>
-				<tr>
-					<td><a href="http://www.volkanongun.com">http://www.volkanongun.com</a></td>
-					<td><a href="/123456">123456</a></td>
-					<td>10</td>
-				</tr>
+				<% shortURLs.forEach(shortURL => { %>
+					<tr>
+						<td><a href="<% shortURL.full %>"><% shortURL.full %></a></td>
+						<td><a href="<% shortURL.short %>"><% shortURL.short %></a></td>
+						<td><% shortURL.clicks %></td>
+					</tr>
+				<% }) %>
 			</tbody>
 
 		</table>
